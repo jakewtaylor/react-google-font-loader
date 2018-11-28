@@ -3,3 +3,4 @@ src
 .gitignore
 webpack.config.js
 yarn.lock
+README.md
