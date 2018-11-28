@@ -1,4 +1,4 @@
-# GoogleFontLoader
+# GoogleFontLoader [![npm](https://img.shields.io/npm/v/react-google-font-loader.svg?style=for-the-badge)](https://www.npmjs.com/package/react-google-font-loader)
 
 This is a _really_ simple component that can automatically handle loading Google fonts for you.
 
