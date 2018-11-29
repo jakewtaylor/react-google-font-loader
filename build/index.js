@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -87,5 +91,12 @@ var GoogleFontLoader = function (_React$PureComponent) {
 }(_react2.default.PureComponent);
 
 ;
+
+GoogleFontLoader.propTypes = {
+    fonts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        font: _propTypes2.default.string,
+        weights: _propTypes2.default.arrayOf(_propTypes2.default.number)
+    })).isRequired
+};
 
 exports.default = GoogleFontLoader;
