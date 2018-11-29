@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class GoogleFontLoader extends React.PureComponent {
     link = null;
@@ -46,6 +47,15 @@ class GoogleFontLoader extends React.PureComponent {
     }
 
     render = () => null;
+};
+
+GoogleFontLoader.propTypes = {
+    fonts: PropTypes.arrayOf(
+        PropTypes.shape({
+            font: PropTypes.string,
+            weights: PropTypes.arrayOf(PropTypes.number),
+        }),
+    ).isRequired,
 };
 
 export default GoogleFontLoader;
