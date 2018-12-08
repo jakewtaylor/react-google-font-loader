@@ -9,10 +9,9 @@ class GoogleFontLoader extends React.PureComponent {
 
         const families = fonts.reduce((acc, font) => {
             const family = font.font.replace(/ +/g, '+');
+            const weights = (font.weights || []).join(',');
 
-            const weights = font.weights instanceof Array && font.weights.length > 0 ? font.weights.join(',') : '';
-
-            acc.push(`${family}${weights && `:${weights}`}`);
+            acc.push(family + (weights && `:${weights}`));
 
             return acc;
         }, []).join('|');
