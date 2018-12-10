@@ -1,6 +1,6 @@
 {
   "name": "react-google-font-loader",
-  "version": "1.0.2",
+  "version": "1.0.2-aplha.1",
   "description": "Simple React component to load Google Fonts.",
   "main": "build/index.js",
   "repository": "https://github.com/jakewtaylor/react-google-font-loader",
