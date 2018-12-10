@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Simple React component to load Google Fonts.",
   "main": "build/index.js",
+  "typings": "src/index.d.ts",
   "repository": "https://github.com/jakewtaylor/react-google-font-loader",
   "author": "Jake Taylor",
   "license": "MIT",
