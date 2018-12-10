@@ -42,9 +42,9 @@ var GoogleFontLoader = function (_React$PureComponent) {
 
             var families = fonts.reduce(function (acc, font) {
                 var family = font.font.replace(/ +/g, '+');
-                var weights = font.weights.join(',');
+                var weights = (font.weights || []).join(',');
 
-                acc.push(family + ':' + weights);
+                acc.push(family + (weights && ':' + weights));
 
                 return acc;
             }, []).join('|');
@@ -90,11 +90,9 @@ var GoogleFontLoader = function (_React$PureComponent) {
     return GoogleFontLoader;
 }(_react2.default.PureComponent);
 
-;
-
 GoogleFontLoader.propTypes = {
     fonts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-        font: _propTypes2.default.string,
+        font: _propTypes2.default.string.isRequired,
         weights: _propTypes2.default.arrayOf(_propTypes2.default.number)
     })).isRequired
 };
