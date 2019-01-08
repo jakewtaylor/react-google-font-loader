@@ -2,7 +2,8 @@ import * as React from 'react';
 
 export interface Font {
     font: string;
-    weights?: number[];
+    weights?: string[];
+    subsets?: string[];
 }
 
 export interface GoogleFontLoaderProps {

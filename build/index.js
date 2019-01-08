@@ -43,8 +43,9 @@ var GoogleFontLoader = function (_React$PureComponent) {
             var families = fonts.reduce(function (acc, font) {
                 var family = font.font.replace(/ +/g, '+');
                 var weights = (font.weights || []).join(',');
+                var subsets = (font.subsets || []).join(',');
 
-                acc.push(family + (weights && ':' + weights));
+                acc.push(family + (weights && ':' + weights) + (subsets && '&subset=' + subsets));
 
                 return acc;
             }, []).join('|');
@@ -93,7 +94,8 @@ var GoogleFontLoader = function (_React$PureComponent) {
 GoogleFontLoader.propTypes = {
     fonts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
         font: _propTypes2.default.string.isRequired,
-        weights: _propTypes2.default.arrayOf(_propTypes2.default.number)
+        weights: _propTypes2.default.arrayOf(_propTypes2.default.string),
+        subsets: _propTypes2.default.arrayOf(_propTypes2.default.string)
     })).isRequired
 };
 
