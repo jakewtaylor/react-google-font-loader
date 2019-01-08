@@ -50,7 +50,7 @@ The Component takes one prop: `fonts`. It should be an array of objects describi
     {
         font: 'Roboto Mono', // The name of the font on Google Fonts.
         weights: [400, 700], // An array of weights you want to load.
-        ['cyrillic-ext', 'greek'], // An array of subsets you want to load.
+        subsets: ['cyrillic-ext', 'greek'], // An array of subsets you want to load.
     },
     // ...
     // You can include as many of these objects as you want.
