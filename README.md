@@ -22,18 +22,19 @@ import GoogleFontLoader from 'react-google-font-loader';
 const App = () => (
   <>
     {/* Use it! */}
-    <GoogleFontLoader fonts={[
-      {
-        font: 'Roboto',
-        weights: [400],
-        subsets: ['cyrillic-ext', 'greek'],
-      },
-      {
-        font: 'Roboto Mono',
-        weights: [400, 700],
-        subsets: ['cyrillic-ext', 'greek'],
-      },
-    ]} />
+    <GoogleFontLoader
+      fonts={[
+        {
+          font: 'Roboto',
+          weights: [400, '400i'],
+        },
+        {
+          font: 'Roboto Mono',
+          weights: [400, 700],
+        },
+      ]}
+      subsets={['cyrillic-ext', 'greek']}
+    />
 
     <p style={{ fontFamily: 'Roboto Mono, monospaced' }}>This will be in Roboto Mono!</p>
     <p style={{ fontFamily: 'Roboto, sans-serif' }}>This will be in Roboto!</p>
@@ -43,16 +44,25 @@ const App = () => (
 
 ## Props
 
-The Component takes one prop: `fonts`. It should be an array of objects describing the fonts you want to load.
+The Component takes two props: `fonts` and `subsets`.
+
+#### `fonts`
+`fonts` should be an array of objects describing the fonts you want to load:
 
 ```JavaScript
 [
     {
         font: 'Roboto Mono', // The name of the font on Google Fonts.
-        weights: [400, 700], // An array of weights you want to load.
-        subsets: ['cyrillic-ext', 'greek'], // An array of subsets you want to load.
+        weights: [400, 700], // An array of weights you want to load, can be strings or numbers.
     },
     // ...
     // You can include as many of these objects as you want.
 ]
+```
+
+#### `subsets`
+`subsets` should be an array of subsets you want to load. **This prop is optional** - if you do not specify a `subsets` prop then the 'subset' query param will be omitted from the URL and only latin will be loaded.
+
+```JavaScript
+['cyrillic-ext', 'greek']
 ```
