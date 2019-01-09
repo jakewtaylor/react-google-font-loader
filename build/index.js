@@ -37,7 +37,9 @@ var GoogleFontLoader = function (_React$PureComponent) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = GoogleFontLoader.__proto__ || Object.getPrototypeOf(GoogleFontLoader)).call.apply(_ref, [this].concat(args))), _this), _this.link = null, _this.createLink = function () {
-            var fonts = _this.props.fonts;
+            var _this$props = _this.props,
+                fonts = _this$props.fonts,
+                subsets = _this$props.subsets;
 
 
             var families = fonts.reduce(function (acc, font) {
@@ -52,6 +54,10 @@ var GoogleFontLoader = function (_React$PureComponent) {
             var link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = 'https://fonts.googleapis.com/css?family=' + families;
+
+            if (subsets && Array.isArray(subsets) && subsets.length > 0) {
+                link.href += '&subset=' + subsets.join(',');
+            }
 
             return link;
         }, _this.appendLink = function () {
@@ -93,8 +99,9 @@ var GoogleFontLoader = function (_React$PureComponent) {
 GoogleFontLoader.propTypes = {
     fonts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
         font: _propTypes2.default.string.isRequired,
-        weights: _propTypes2.default.arrayOf(_propTypes2.default.number)
-    })).isRequired
+        weights: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]))
+    })).isRequired,
+    subsets: _propTypes2.default.arrayOf(_propTypes2.default.string)
 };
 
 exports.default = GoogleFontLoader;
