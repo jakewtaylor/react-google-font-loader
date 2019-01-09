@@ -5,14 +5,13 @@ class GoogleFontLoader extends React.PureComponent {
     link = null;
 
     createLink = () => {
-        const { fonts } = this.props;
+        const { fonts, subsets } = this.props;
 
         const families = fonts.reduce((acc, font) => {
             const family = font.font.replace(/ +/g, '+');
             const weights = (font.weights || []).join(',');
-            const subsets = (font.subsets || []).join(',');
 
-            acc.push(family + (weights && `:${weights}`) + (subsets && `&subset=${subsets}`));
+            acc.push(family + (weights && `:${weights}`));
 
             return acc;
         }, []).join('|');
@@ -20,6 +19,10 @@ class GoogleFontLoader extends React.PureComponent {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = `https://fonts.googleapis.com/css?family=${families}`;
+
+        if (subsets && Array.isArray(subsets) && subsets.length > 0) {
+            link.href += `&subset=${subsets.join(',')}`;
+        }
 
         return link;
     }
@@ -57,9 +60,9 @@ GoogleFontLoader.propTypes = {
         PropTypes.shape({
             font: PropTypes.string.isRequired,
             weights: PropTypes.arrayOf(PropTypes.oneOf([PropTypes.string, PropTypes.number])),
-            subsets: PropTypes.arrayOf(PropTypes.string),
         }),
     ).isRequired,
+    subsets: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default GoogleFontLoader;
