@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface Font {
     font: string;
-    weights?: string[];
+    weights?: (string|number)[];
     subsets?: string[];
 }
 

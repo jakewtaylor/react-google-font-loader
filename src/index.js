@@ -56,7 +56,7 @@ GoogleFontLoader.propTypes = {
     fonts: PropTypes.arrayOf(
         PropTypes.shape({
             font: PropTypes.string.isRequired,
-            weights: PropTypes.arrayOf(PropTypes.string),
+            weights: PropTypes.arrayOf(PropTypes.oneOf([PropTypes.string, PropTypes.number])),
             subsets: PropTypes.arrayOf(PropTypes.string),
         }),
     ).isRequired,

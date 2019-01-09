@@ -94,7 +94,7 @@ var GoogleFontLoader = function (_React$PureComponent) {
 GoogleFontLoader.propTypes = {
     fonts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
         font: _propTypes2.default.string.isRequired,
-        weights: _propTypes2.default.arrayOf(_propTypes2.default.string),
+        weights: _propTypes2.default.arrayOf(_propTypes2.default.oneOf([_propTypes2.default.string, _propTypes2.default.number])),
         subsets: _propTypes2.default.arrayOf(_propTypes2.default.string)
     })).isRequired
 };
