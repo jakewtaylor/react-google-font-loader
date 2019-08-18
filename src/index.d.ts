@@ -10,6 +10,6 @@ export interface GoogleFontLoaderProps {
     subsets?: string[];
 }
 
-declare class GoogleFontLoader extends React.PureComponent<GoogleFontLoaderProps> {};
+declare class GoogleFontLoader extends React.PureComponent<GoogleFontLoaderProps> {}
 
 export default GoogleFontLoader;
