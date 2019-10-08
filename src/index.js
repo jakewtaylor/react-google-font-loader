@@ -1,59 +1,47 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-class GoogleFontLoader extends React.PureComponent {
-    link = null;
+const createLink = (fonts, subsets, display) => {
+    const families = fonts.reduce((acc, font) => {
+        const family = font.font.replace(/ +/g, '+');
+        const weights = (font.weights || []).join(',');
 
-    createLink = () => {
-        const { fonts, subsets } = this.props;
+        return [
+            ...acc,
+            family + (weights && `:${weights}`),
+        ];
+    }, []).join('|');
 
-        const families = fonts.reduce((acc, font) => {
-            const family = font.font.replace(/ +/g, '+');
-            const weights = (font.weights || []).join(',');
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css?family=${families}`;
 
-            acc.push(family + (weights && `:${weights}`));
-
-            return acc;
-        }, []).join('|');
-
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css?family=${families}`;
-
-        if (subsets && Array.isArray(subsets) && subsets.length > 0) {
-            link.href += `&subset=${subsets.join(',')}`;
-        }
-
-        return link;
+    if (subsets && Array.isArray(subsets) && subsets.length > 0) {
+        link.href += `&subset=${subsets.join(',')}`;
     }
 
-    appendLink = () => document.head.appendChild(this.link);
-
-    removeLink = () => document.head.removeChild(this.link);
-
-    replaceLink = () => {
-        this.removeLink();
-        this.link = this.createLink();
-        this.appendLink();
+    if (display) {
+        link.href += `&display=${display}`;
     }
 
-    componentDidMount () {
-        this.link = this.createLink();
-        this.appendLink();
-    }
+    return link;
+};
 
-    componentDidUpdate (prevProps) {
-        if (JSON.stringify(prevProps.fonts) !== JSON.stringify(this.props.fonts)) {
-            this.replaceLink();
-        }
-    }
+const GoogleFontLoader = ({ fonts, subsets, display = null }) => {
+    const [link, setLink] = useState(createLink(fonts, subsets, display));
 
-    componentWillUnmount () {
-        this.removeLink();
-    }
+    useEffect(() => {
+        document.head.appendChild(link);
 
-    render = () => null;
-}
+        return () => document.head.removeChild(link);
+    }, [link]);
+
+    useEffect(() => {
+        setLink(createLink(fonts, subsets, display));
+    }, [fonts, subsets, display]);
+
+    return null;
+};
 
 GoogleFontLoader.propTypes = {
     fonts: PropTypes.arrayOf(
@@ -66,6 +54,7 @@ GoogleFontLoader.propTypes = {
         }),
     ).isRequired,
     subsets: PropTypes.arrayOf(PropTypes.string),
+    display: PropTypes.string,
 };
 
 export default GoogleFontLoader;
