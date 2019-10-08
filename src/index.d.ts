@@ -8,8 +8,11 @@ export interface Font {
 export interface GoogleFontLoaderProps {
     fonts: Font[];
     subsets?: string[];
+    display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional';
 }
 
-declare class GoogleFontLoader extends React.PureComponent<GoogleFontLoaderProps> {};
+declare const GoogleFontLoader: React.FC<GoogleFontLoaderProps>;
+// declare class GoogleFontLoader extends React.PureComponent<GoogleFontLoaderProps> {};
+
 
 export default GoogleFontLoader;
