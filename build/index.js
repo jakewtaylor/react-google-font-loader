@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var createLink = function createLink(fonts, subsets, display) {
+var createLink = function createLink(fonts, subsets, display, contentDocument) {
     var families = fonts.reduce(function (acc, font) {
         var family = font.font.replace(/ +/g, '+');
         var weights = (font.weights || []).join(',');
@@ -24,7 +24,7 @@ var createLink = function createLink(fonts, subsets, display) {
         return [].concat(_toConsumableArray(acc), [family + (weights && ':' + weights)]);
     }, []).join('|');
 
-    var link = document.createElement('link');
+    var link = contentDocument.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://fonts.googleapis.com/css?family=' + families;
 
@@ -43,23 +43,25 @@ var GoogleFontLoader = function GoogleFontLoader(_ref) {
     var fonts = _ref.fonts,
         subsets = _ref.subsets,
         _ref$display = _ref.display,
-        display = _ref$display === undefined ? null : _ref$display;
+        display = _ref$display === undefined ? null : _ref$display,
+        _ref$contentDocument = _ref.contentDocument,
+        contentDocument = _ref$contentDocument === undefined ? document : _ref$contentDocument;
 
-    var _useState = (0, _react.useState)(createLink(fonts, subsets, display)),
+    var _useState = (0, _react.useState)(createLink(fonts, subsets, display, contentDocument)),
         _useState2 = _slicedToArray(_useState, 2),
         link = _useState2[0],
         setLink = _useState2[1];
 
     (0, _react.useEffect)(function () {
-        document.head.appendChild(link);
+        contentDocument.head.appendChild(link);
 
         return function () {
-            return document.head.removeChild(link);
+            return contentDocument.head.removeChild(link);
         };
     }, [link]);
 
     (0, _react.useEffect)(function () {
-        setLink(createLink(fonts, subsets, display));
+        setLink(createLink(fonts, subsets, display, contentDocument));
     }, [fonts, subsets, display]);
 
     return null;
@@ -71,7 +73,8 @@ GoogleFontLoader.propTypes = {
         weights: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]))
     })).isRequired,
     subsets: _propTypes2.default.arrayOf(_propTypes2.default.string),
-    display: _propTypes2.default.string
+    display: _propTypes2.default.string,
+    contentDocument: _propTypes2.default.node
 };
 
 exports.default = GoogleFontLoader;
