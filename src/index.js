@@ -55,7 +55,7 @@ GoogleFontLoader.propTypes = {
     ).isRequired,
     subsets: PropTypes.arrayOf(PropTypes.string),
     display: PropTypes.string,
-    contentDocument: PropTypes.node,
+    contentDocument: PropTypes.object,
 };
 
 export default GoogleFontLoader;

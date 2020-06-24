@@ -9,7 +9,7 @@ export interface GoogleFontLoaderProps {
     fonts: Font[];
     subsets?: string[];
     display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional';
-    contentDocument?: Node;
+    contentDocument?: object;
 }
 
 declare const GoogleFontLoader: React.FC<GoogleFontLoaderProps>;
