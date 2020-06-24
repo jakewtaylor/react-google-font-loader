@@ -74,7 +74,7 @@ GoogleFontLoader.propTypes = {
     })).isRequired,
     subsets: _propTypes2.default.arrayOf(_propTypes2.default.string),
     display: _propTypes2.default.string,
-    contentDocument: _propTypes2.default.node
+    contentDocument: _propTypes2.default.object
 };
 
 exports.default = GoogleFontLoader;
