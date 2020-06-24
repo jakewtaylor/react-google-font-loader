@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const createLink = (fonts, subsets, display) => {
+const createLink = (fonts, subsets, display, contentDocument) => {
     const families = fonts.reduce((acc, font) => {
         const family = font.font.replace(/ +/g, '+');
         const weights = (font.weights || []).join(',');
@@ -12,7 +12,7 @@ const createLink = (fonts, subsets, display) => {
         ];
     }, []).join('|');
 
-    const link = document.createElement('link');
+    const link = contentDocument.createElement('link');
     link.rel = 'stylesheet';
     link.href = `https://fonts.googleapis.com/css?family=${families}`;
 
@@ -27,17 +27,17 @@ const createLink = (fonts, subsets, display) => {
     return link;
 };
 
-const GoogleFontLoader = ({ fonts, subsets, display = null }) => {
-    const [link, setLink] = useState(createLink(fonts, subsets, display));
+const GoogleFontLoader = ({ fonts, subsets, display = null, contentDocument = document }) => {
+    const [link, setLink] = useState(createLink(fonts, subsets, display, contentDocument));
 
     useEffect(() => {
-        document.head.appendChild(link);
+        contentDocument.head.appendChild(link);
 
-        return () => document.head.removeChild(link);
+        return () => contentDocument.head.removeChild(link);
     }, [link]);
 
     useEffect(() => {
-        setLink(createLink(fonts, subsets, display));
+        setLink(createLink(fonts, subsets, display, contentDocument));
     }, [fonts, subsets, display]);
 
     return null;
@@ -55,6 +55,7 @@ GoogleFontLoader.propTypes = {
     ).isRequired,
     subsets: PropTypes.arrayOf(PropTypes.string),
     display: PropTypes.string,
+    contentDocument: PropTypes.object,
 };
 
 export default GoogleFontLoader;
