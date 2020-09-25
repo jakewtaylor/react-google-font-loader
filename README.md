@@ -44,7 +44,7 @@ const App = () => (
 
 ## Props
 
-The Component takes two props: `fonts` and `subsets`.
+The Component takes three props: `fonts`, `subsets` and `text`.
 
 #### `fonts`
 `fonts` should be an array of objects describing the fonts you want to load:
@@ -61,7 +61,10 @@ The Component takes two props: `fonts` and `subsets`.
 ```
 
 #### `subsets`
-`subsets` should be an array of subsets you want to load. **This prop is optional** - if you do not specify a `subsets` prop then the 'subset' query param will be omitted from the URL and only latin will be loaded.
+`subsets` should be an array of subsets you want to load. **This prop is optional and shouldn't be used with `text`** - if you do not specify a `subsets` prop then the 'subset' query param will be omitted from the URL and only latin will be loaded.
+
+#### `text`
+`text` should be a string containing the characters you wan't the loaded font files to contain. **This prop is optional and shouldn't be used with `subsets`** - if you do not specify a `text` prop then the 'text' query param will be omitted from the URL.
 
 ```JavaScript
 ['cyrillic-ext', 'greek']
