@@ -1,12 +1,16 @@
 {
   "name": "react-google-font",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React component to load Google Fonts dynamically",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "repository": "https://github.com/dherault/react-google-font",
   "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
   "license": "MIT",
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
   "scripts": {
     "build": "npx tsc && cp src/index.d.ts dist/index.d.ts",
     "clean": "rimraf dist",
