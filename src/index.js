@@ -1,60 +1,59 @@
-import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 
 const createLink = (fonts, subsets, display) => {
-    const families = fonts.reduce((acc, font) => {
-        const family = font.font.replace(/ +/g, '+');
-        const weights = (font.weights || []).join(',');
+  const families = fonts.reduce((acc, font) => {
+    const family = font.font.replace(/ +/g, '+')
+    const weights = (font.weights || []).join(',')
 
-        return [
-            ...acc,
-            family + (weights && `:${weights}`),
-        ];
-    }, []).join('|');
+    return [
+      ...acc,
+      family + (weights && `:${weights}`),
+    ]
+  }, []).join('|')
 
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css?family=${families}`;
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href = `https://fonts.googleapis.com/css?family=${families}`
 
-    if (subsets && Array.isArray(subsets) && subsets.length > 0) {
-        link.href += `&subset=${subsets.join(',')}`;
-    }
+  if (subsets && Array.isArray(subsets) && subsets.length > 0) {
+    link.href += `&subset=${subsets.join(',')}`
+  }
 
-    if (display) {
-        link.href += `&display=${display}`;
-    }
+  if (display) {
+    link.href += `&display=${display}`
+  }
 
-    return link;
-};
+  return link
+}
+function GoogleFontLoader({ fonts, subsets, display = null }) {
+  const [link, setLink] = useState(createLink(fonts, subsets, display))
 
-const GoogleFontLoader = ({ fonts, subsets, display = null }) => {
-    const [link, setLink] = useState(createLink(fonts, subsets, display));
+  useEffect(() => {
+    document.head.appendChild(link)
 
-    useEffect(() => {
-        document.head.appendChild(link);
+    return () => document.head.removeChild(link)
+  }, [link])
 
-        return () => document.head.removeChild(link);
-    }, [link]);
+  useEffect(() => {
+    setLink(createLink(fonts, subsets, display))
+  }, [fonts, subsets, display])
 
-    useEffect(() => {
-        setLink(createLink(fonts, subsets, display));
-    }, [fonts, subsets, display]);
-
-    return null;
-};
+  return null
+}
 
 GoogleFontLoader.propTypes = {
-    fonts: PropTypes.arrayOf(
-        PropTypes.shape({
-            font: PropTypes.string.isRequired,
-            weights: PropTypes.arrayOf(PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-            ])),
-        }),
-    ).isRequired,
-    subsets: PropTypes.arrayOf(PropTypes.string),
-    display: PropTypes.string,
-};
+  fonts: PropTypes.arrayOf(
+    PropTypes.shape({
+      font: PropTypes.string.isRequired,
+      weights: PropTypes.arrayOf(PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ])),
+    }),
+  ).isRequired,
+  subsets: PropTypes.arrayOf(PropTypes.string),
+  display: PropTypes.string,
+}
 
-export default GoogleFontLoader;
+export default GoogleFontLoader
