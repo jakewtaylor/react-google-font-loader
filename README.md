@@ -1,4 +1,6 @@
-# GoogleFontLoader [![npm](https://img.shields.io/npm/v/react-google-font-loader.svg?style=for-the-badge)](https://www.npmjs.com/package/react-google-font-loader)
+# GoogleFontLoader [![npm](https://img.shields.io/npm/v/react-google-font.svg?style=for-the-badge)](https://www.npmjs.com/package/react-google-font)
+
+Maintained fork of [react-google-font-loader](https://github.com/jakewtaylor/react-google-font-loader).
 
 This is a _really_ simple component that can automatically handle loading Google fonts for you.
 
@@ -6,50 +8,46 @@ You simply pass it a config array and it will load the fonts for you by appendin
 
 ## Installation
 
-Install with either yarn or npm:
-
 ```
-yarn add react-google-font-loader
-npm install --save react-google-font-loader
+npm install --save react-google-font
 ```
 
 ## Usage
 
-```JavaScript
-// Import the Component, you can call it whatever you like.
-import GoogleFontLoader from 'react-google-font-loader';
+```jsx
+import GoogleFontLoader from 'react-google-font'
 
-const App = () => (
-  <>
-    {/* Use it! */}
-    <GoogleFontLoader
-      fonts={[
-        {
-          font: 'Roboto',
-          weights: [400, '400i'],
-        },
-        {
-          font: 'Roboto Mono',
-          weights: [400, 700],
-        },
-      ]}
-      subsets={['cyrillic-ext', 'greek']}
-    />
-
-    <p style={{ fontFamily: 'Roboto Mono, monospaced' }}>This will be in Roboto Mono!</p>
-    <p style={{ fontFamily: 'Roboto, sans-serif' }}>This will be in Roboto!</p>
-  </>
-);
+function App() {
+  return (
+    <>
+      <GoogleFontLoader
+        fonts={[
+          {
+            font: 'Roboto',
+            weights: [400, '400i'],
+          },
+          {
+            font: 'Roboto Mono',
+            weights: [400, 700],
+          },
+        ]}
+        subsets={['cyrillic-ext', 'greek']}
+      />
+      <p style={{ fontFamily: 'Roboto Mono, monospaced' }}>This will be in Roboto Mono!</p>
+      <p style={{ fontFamily: 'Roboto, sans-serif' }}>This will be in Roboto!</p>
+    </>
+  )
+}
 ```
 
 ## Props
 
-The Component takes two props: `fonts` and `subsets`.
+The Component takes three props: `fonts`, `subsets` and `text`.
 
 #### `fonts`
 `fonts` should be an array of objects describing the fonts you want to load:
 
-```JavaScript
+```js
 [
     {
         font: 'Roboto Mono', // The name of the font on Google Fonts.
@@ -61,8 +59,15 @@ The Component takes two props: `fonts` and `subsets`.
 ```
 
 #### `subsets`
-`subsets` should be an array of subsets you want to load. **This prop is optional** - if you do not specify a `subsets` prop then the 'subset' query param will be omitted from the URL and only latin will be loaded.
+`subsets` should be an array of subsets you want to load. **This prop is optional and shouldn't be used with `text`** - if you do not specify a `subsets` prop then the 'subset' query param will be omitted from the URL and only latin will be loaded.
 
-```JavaScript
+#### `text`
+`text` should be a string containing the characters you wan't the loaded font files to contain. **This prop is optional and shouldn't be used with `subsets`** - if you do not specify a `text` prop then the 'text' query param will be omitted from the URL.
+
+```js
 ['cyrillic-ext', 'greek']
 ```
+
+## License
+
+MIT
